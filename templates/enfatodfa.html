@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-NFA to DFA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .container {
+            max-width: 800px;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            padding: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <form id="form" action="/soal1/enfatodfa/submit" method="POST">
+            <h1 class="text-center mt-4">e-NFA to DFA</h1>
+            <div class="input-group">
+                <label for="states">States:</label>
+                <input type="text" id="states" name="states" placeholder="Enter states">
+            </div>
+            <div class="input-group">
+                <label for="symbol">Input Symbols:</label>
+                <input type="text" id="symbol" name="symbol" placeholder="Enter input symbols">
+            </div>
+            <div class="input-group">
+                <label for="finalStates">Final States:</label>
+                <input type="text" id="finalStates" name="finalStates" placeholder="Enter final states">
+            </div>
+            <div id="transitions"></div>
+            <div>
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Symbol</th>
+                    <th>Next State</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for state, transitions in dfa_transitions.items() %}
+                <tr>
+                    <td>{{ state }}</td>
+                    <td>
+                        {% for symbol, next_state in transitions.items() %}
+                        {{ symbol }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for symbol, next_state in transitions.items() %}
+                        {{ next_state }}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#symbol").on("change", function () {
+                var symbol = $(this).val().split(" ");
+                var states = $("#states").val().split(" ");
+                var transitionsDiv = $("#transitions");
+                transitionsDiv.empty();
+
+                states.forEach(function (state) {
+                    var stateLabel = $("<p>").text("State: " + state);
+                    transitionsDiv.append(stateLabel);
+
+                    symbol.forEach(function (symbol) {
+                        var inputGroup = $("<div>").addClass("input-group");
+                        var label = $("<label>").text("Transition from state " + state + " with symbol " + symbol + ":");
+                        inputGroup.append(label);
+                        var input = $("<input>").attr({
+                            type: "text",
+                            name: "transitions_" + state + "_" + symbol,
+                            placeholder: "Enter transition for state " + state + " with symbol " + symbol
+                        });
+                        inputGroup.append(input);
+                        transitionsDiv.append(inputGroup);
+                    });
+
+                    var inputGroupEpsilon = $("<div>").addClass("input-group");
+                    var labelEpsilon = $("<label>").text("Transition from state " + state + " with symbol ε:");
+                    inputGroupEpsilon.append(labelEpsilon);
+                    var inputEpsilon = $("<input>").attr({
+                        type: "text",
+                        name: "transitions_" + state + "_ε",
+                        placeholder: "Enter transition for state " + state + " with symbol ε"
+                    });
+                    inputGroupEpsilon.append(inputEpsilon);
+                    transitionsDiv.append(inputGroupEpsilon);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

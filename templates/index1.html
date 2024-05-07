@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>PROJEK TBA</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #e9e9e9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h1 {
+            background-color: #93bf85;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .center {
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #000;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 97%;
+            margin-top: 5px;
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+            transition: border-color 0.3s ease; 
+        }
+        button {
+            display: block;
+            font-weight: bold;
+            margin: auto;
+            height: 45px;
+            width: 200px;
+        }
+        
+        .spanbutton {
+            font-weight: normal;
+        }
+        
+        .cta-1 {
+            margin-top: 20px;
+            position: relative;
+            padding: 8px 16px;
+            font-size: 17px;
+            background-color: #b2cffa;
+            border-radius: 6px;
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .cta-1:active, .cta-1:focus{
+            outline: none;
+        }
+        
+        .cta-1 span{
+            position: relative;
+            color: black;
+            transition: all 0.6s ease;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .cta-1::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #4F46E5;
+            transform: scaleX(0);
+            transform-origin: 100%;
+            transition: transform 0.6s ease;
+        }
+        
+        .cta-1:hover::before  {
+            transform-origin: 0;
+            transform: scaleX(1);
+        }
+        
+        .cta-1:hover span{
+            color: #ffffff;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        code.python {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            font-family: Consolas, monospace;
+        }
+        p {
+            color: #666;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        .error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center">MENGUBAH NFA ATAUPUN e-NFA MENJADI DFA</h1>
+        <form action="/soal1/submit1" method="POST">
+            <label for="states">States (Pisahkan dengan koma):</label><br>
+            <input type="text" id="states" name="states"><br>
+            <label for="alphabet">Alphabet (Pisahkan dengan koma):</label><br>
+            <input type="text" id="alphabet" name="alphabet"><br>
+            <p>Masukkan transisi:</p>
+            <div id="transitions">
+                <input type="text" name="transitions"><br>
+            </div>
+            <button type="button" class="cta-1" onclick="addTransition()"><span>Tambah Transisi</span></button><br><br>
+            <label for="start_state">Initial State:</label><br>
+            <input type="text" id="start_state" name="start_state"><br>
+            <label for="accept_states">Final States (Pisahkan dengan koma):</label><br>
+            <input type="text" id="accept_states" name="accept_states"><br><br>
+            <button type="submit" class="cta-1"><span>Submit</span></button>
+        </form>
+        <hr>
+        <pre><code class="python">
+{% if dfa_table %}
+{{ dfa_table }}
+{% else %}
+<p class="error">Belum ada tabel transisi DFA yang dihasilkan.</p>
+{% endif %}
+        </code></pre>
+    </div>
+
+    <script>
+        function addTransition() {
+            var div = document.getElementById("transitions");
+            var input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.setAttribute("name", "transitions");
+            input.style.width = "calc(100% - 22px)";
+            input.style.padding = "10px";
+            input.style.marginBottom = "10px";
+            input.style.border = "1px solid #ccc";
+            input.style.borderRadius = "5px";
+            div.appendChild(input);
+            div.appendChild(document.createElement("br"));
+        }
+    </script>
+</body>
+</html>

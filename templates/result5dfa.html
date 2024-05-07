@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e9e9e9;
+        }
+
+        .center {
+            text-align: center;
+        }
+        
+        .container h1 {
+            background-color: #93bf85;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #000;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            padding: 10px;
+            width: 97%;
+            margin-top: 5px;
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+            transition: border-color 0.3s ease; 
+        }
+
+        button {
+            display: block;
+            font-weight: bold;
+            margin: auto;
+            height: 45px;
+            width: 200px;
+        }
+        
+        .spanbutton {
+            font-weight: normal;
+        }
+        
+        .cta-1 {
+            margin-top: 20px;
+            position: relative;
+            padding: 8px 16px;
+            font-size: 17px;
+            background-color: #b2cffa;
+            border-radius: 6px;
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .cta-1:active, .cta-1:focus{
+            outline: none;
+        }
+        
+        .cta-1 span{
+            position: relative;
+            color: black;
+            transition: all 0.6s ease;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .cta-1::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #4F46E5;
+            transform: scaleX(0);
+            transform-origin: 100%;
+            transition: transform 0.6s ease;
+        }
+        
+        .cta-1:hover::before  {
+            transform-origin: 0;
+            transform: scaleX(1);
+        }
+        
+        .cta-1:hover span{
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <form id="form" action="/soal5/dfa/submit" method="POST">
+            <h1 class="center">DFA</h1>
+            <div class="input-group">
+                <label for="states">States :</label>
+                <input type="text" id="states" name="states" placeholder="Masukkan states">
+            </div>
+            <div class="input-group">
+                <label for="symbol">Simbol :</label>
+                <input type="text" id="symbol" name="symbol" placeholder="Masukkan simbol">
+            </div>
+            <div class="input-group">
+                <label for="finalStates">State Final :</label>
+                <input type="text" id="finalStates" name="finalStates" placeholder="Masukkan state final">
+            </div>
+            <div id="transitions"></div>
+            <div class="input-group">
+                <label for="string">Masukkan String :</label>
+                <input type="text" id="string" name="string" placeholder="Masukkan string">
+            </div>
+            <div>
+                <button type="submit" class="cta-1"><span>Submit</span></button>
+            </div>
+        </form>
+        <h2 class="text-center mt-3">{{ result }}</h2>
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#symbol").on("change", function () {
+                var symbol = $(this).val().split(" ");
+                var states = $("#states").val().split(" ");
+                var transitionsDiv = $("#transitions");
+                transitionsDiv.empty();
+
+                states.forEach(function (state) {
+                    var stateLabel = $("<p>").text("State: " + state);
+                    transitionsDiv.append(stateLabel);
+
+                    symbol.forEach(function (symbol) {
+                        var inputGroup = $("<div>").addClass("input-group");
+                        var label = $("<label>").text("Transition from state " + state + " with symbol " + symbol + ":");
+                        inputGroup.append(label);
+                        var input = $("<input>").attr({
+                            type: "text",
+                            name: "transitions_" + state + "_" + symbol,
+                            placeholder: "Enter transition for state " + state + " with symbol " + symbol
+                        });
+                        inputGroup.append(input);
+                        transitionsDiv.append(inputGroup);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

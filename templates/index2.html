@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <title>Regex Evaluation</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #e9e9e9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h1 {
+            background-color: #93bf85;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #000;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 30%;
+            margin-top: 5px;
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+            transition: border-color 0.3s ease; 
+        }
+
+        button {
+            display: block;
+            font-weight: bold;
+            margin: auto;
+            height: 45px;
+            width: 200px;
+        }
+        
+        .spanbutton {
+            font-weight: normal;
+        }
+        
+        .cta-1 {
+            margin-top: 20px;
+            position: relative;
+            padding: 8px 16px;
+            font-size: 17px;
+            background-color: #b2cffa;
+            border-radius: 6px;
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .cta-1:active, .cta-1:focus{
+            outline: none;
+        }
+        
+        .cta-1 span{
+            position: relative;
+            color: black;
+            transition: all 0.6s ease;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .cta-1::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #4F46E5;
+            transform: scaleX(0);
+            transform-origin: 100%;
+            transition: transform 0.6s ease;
+        }
+        
+        .cta-1:hover::before  {
+            transform-origin: 0;
+            transform: scaleX(1);
+        }
+        
+        .cta-1:hover span{
+            color: #ffffff;
+        }
+
+        hr {
+            margin-top: 50px;
+            border-color: #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom:15px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #e9e9e9;
+        }
+
+        .postfix {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="center">Regular Expression Evaluation</h1>
+        <form action="/soal2/submit2" method="POST">
+            <label for="regexp">Masukkan Regular Expression:</label><br>
+            <input type="text" id="regexp" name="regexp"><br>
+            <button type="submit" class="cta-1"><span>Submit</span></button>
+        </form>
+        <hr>
+        <h3>Table Transisi</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Simbol</th>
+                    <th>State Selanjutnya</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transition in transitions %}
+                <tr>
+                    <td>{{ transition.state }}</td>
+                    <td>{{ transition.symbol }}</td>
+                    <td>{{ transition.next_state }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="postfix">
+            <h4>Regular Expression dalam bentuk postfix: {{ pr }}</h4>
+        </div>
+    </div>
+</body>
+
+</html>
