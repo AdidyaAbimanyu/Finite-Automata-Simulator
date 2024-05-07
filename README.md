@@ -18,6 +18,7 @@ Sebuah program Python yang menggunakan framework Flask untuk menyelesaikan berba
 5. **Menentukan apakah string dapat diterima atau tidak di dalam sebuah e-NFA, NFA, DFA, dan Reguler Expression**
    - Program memungkinkan pengguna untuk memeriksa apakah sebuah string dapat diterima atau tidak dalam berbagai jenis automata.
 
+
 **Cara Menjalankan Program**
 1. Pastikan Python dan library Flask telah terinstal di perangkat Anda.
 2. Unduh semua file ke dalam direktori yang diinginkan.
